@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OrganizaYa
 
-## Getting Started
+**OrganizaYa** es una aplicación de lista de tareas creada con Next.js, Tailwind CSS y Shadcn. Este proyecto tiene como objetivo proporcionar una interfaz sencilla y eficiente para la gestión de tareas diarias.
 
-First, run the development server:
+## Descripción
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+OrganizaYa permite a los usuarios agregar, eliminar y marcar tareas como completadas. La aplicación está diseñada para ser intuitiva y fácil de usar, haciendo uso de las tecnologías modernas para una experiencia de usuario fluida.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologías Utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js**: Un framework de React para aplicaciones web estáticas y dinámicas.
+- **Tailwind CSS**: Un framework de CSS utilitario para estilizar la aplicación.
+- **Shadcn**: Una biblioteca de componentes para React.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Instalación
 
-## Learn More
+Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clona el repositorio:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/tuusuario/OrganizaYa.git
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Navega al directorio del proyecto:**
 
-## Deploy on Vercel
+   ```bash
+   cd OrganizaYa
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Instala las dependencias:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   npm install
+   ```
+
+4. **Inicia la aplicación:**
+
+   ```bash
+   npm run dev
+   ```
+
+   La aplicación debería estar ejecutándose en [http://localhost:3000](http://localhost:3000).
+
+## Uso
+
+Una vez que la aplicación esté en funcionamiento, puedes comenzar a agregar tus tareas diarias, eliminarlas o marcarlas como completadas utilizando la interfaz de usuario.
+
+## Contribución
+
+Las contribuciones son bienvenidas. Si tienes alguna idea o encuentras algún problema, por favor abre una issue o envía una pull request.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+## Contacto
+
+Para cualquier consulta, puedes contactarme en [tuemail@example.com](mailto:tuemail@example.com).
+
