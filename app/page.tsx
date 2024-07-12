@@ -1,7 +1,10 @@
 import TareaTarjeta from "@/components/TareaTarjeta";
 import { tareas } from "@/contants";
+import { CreateTarea } from "@/lib/actions.tarea";
 
-export default function Home() {
+export default async function Home() {
+
+  // const tarea = await CreateTarea();
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-[url('/assets/images/grid.png')] ">

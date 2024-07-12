@@ -30,5 +30,4 @@ export const tareas = [
       date: new Date("2024-06-04T00:00:00.000Z"),
       isCompleted: true
     },
-
   ] 
