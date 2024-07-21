@@ -13,7 +13,7 @@ import {
 import { CheckIcon, PencilIcon, Trash2Icon } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
-import { borrarTarea } from '@/lib/actions.tarea'
+import { borrarTarea, completarTarea } from '@/lib/actions.tarea'
 
 
 
@@ -31,8 +31,13 @@ const TareaTarjeta = ({_id, titulo, desc, date, isCompleted} : Props)  => {
     const [completed, setCompleted] = useState(isCompleted);
     const router  = useRouter();
 
-    const handleClick = () => {
-        setCompleted( (prevState) => !prevState )
+    const handleComplete = async() => {
+
+
+        if (_id) {
+            const tareaActualizada = await completarTarea(_id);
+            setCompleted( (prevState) => !prevState );
+        }
     }
 
 
@@ -75,7 +80,7 @@ const TareaTarjeta = ({_id, titulo, desc, date, isCompleted} : Props)  => {
                 ) : (
                     <Button 
                         variant="outline"
-                        onClick={handleClick}
+                        onClick={handleComplete}
                         >
                             Completar
                     </Button>

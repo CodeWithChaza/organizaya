@@ -30,7 +30,6 @@ export const editarTarea = async(tarea: TareaInterface) => {
     await connectToDatabase();
 
     try {
-
         const tareaAEditar = await Tarea.findById(tarea._id) as TareaInterface;
         if (!tareaAEditar) return;
 
@@ -45,6 +44,31 @@ export const editarTarea = async(tarea: TareaInterface) => {
         
     }
 }
+
+export const completarTarea = async(tareaId: string) => {
+    await connectToDatabase();
+
+    try {
+        const tareaAEditar = await Tarea.findById(tareaId) as TareaInterface;
+        if (!tareaAEditar) return;
+
+
+        const tareaActulizada = await Tarea.findByIdAndUpdate( 
+            tareaAEditar._id, 
+            {
+                isCompleted: true,
+            }, 
+            {new: true});
+        revalidatePath('/');
+
+
+        return JSON.parse(JSON.stringify(tareaActulizada)) 
+        
+    } catch (error) {
+        
+    }
+}
+
 
 export const borrarTarea = async(tareaId: string) => {
 
@@ -63,6 +87,7 @@ export const borrarTarea = async(tareaId: string) => {
 
 
 export const getTareas = async () => {
+    await connectToDatabase();
 
     try {
         
@@ -77,6 +102,7 @@ export const getTareas = async () => {
 
 
 export const getTareasById = async (tareaId: string) => {
+    await connectToDatabase();
 
     try {
         
