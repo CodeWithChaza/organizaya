@@ -15,3 +15,14 @@ declare type TareaInterface = {
     fechaACompletar: string | Date ;
     isCompleted: boolean;
 }
+
+
+declare type EtiquetaInterface = {
+    _id?: string;
+    nombre: string;
+}
+
+
+declare type EtiquetaParams = {
+    nombre: string;
+}

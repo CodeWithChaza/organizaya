@@ -10,7 +10,7 @@ import {
     CardTitle,
   } from "@/components/ui/card"
   import { Button } from "@/components/ui/button"
-import { CheckIcon, PencilIcon, Trash2Icon } from 'lucide-react'
+import { CheckIcon, CircleCheckBigIcon, CircleIcon, PencilIcon, Trash2Icon } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
 import { borrarTarea, completarTarea } from '@/lib/actions.tarea'
@@ -71,34 +71,35 @@ const TareaTarjeta = ({_id, titulo, desc, date, isCompleted} : Props)  => {
             </p>
         </CardContent>
 
-        <CardFooter className='flex flex-col '>
+        <CardFooter className='flex flex-col pb-0'>
             <Separator className='mb-4'/>
             <div className='flex justify-between items-center w-full'>
                 <p className='text-sm text-gray-600'>{date.substring(0,10)}</p>
-                {completed ? (
-                    <CheckIcon className='text-green-700'/>
-                ) : (
-                    <Button 
-                        variant="outline"
-                        onClick={handleComplete}
-                        >
-                            Completar
-                    </Button>
-                )}
 
+
+                <div className='flex justify-end gap-8 w-full my-2 py-2'>
+                    <PencilIcon 
+                        className='text-gray-400 hover:text-blue-600 cursor-pointer'
+                        onClick={handleEdit}/>
+
+                    <Trash2Icon  
+                        className='text-gray-400 hover:text-red-600 cursor-pointer'
+                        onClick={handleDelete}
+                        />
+
+                    {completed ? (
+                        <CircleCheckBigIcon className='text-green-700'/>
+                    ) : (
+                        <CircleIcon 
+                            onClick={handleComplete}
+                            className='text-gray-400 hover:text-green-700 cursor-pointer'
+                            />
+
+                    )}
+                </div>
             </div>
             
-            <div className='flex justify-end gap-8 w-full my-2 py-2'>
 
-                <PencilIcon 
-                    className='text-gray-400 hover:text-blue-600 cursor-pointer'
-                    onClick={handleEdit}/>
-                
-                <Trash2Icon  
-                    className='text-gray-400 hover:text-red-600 cursor-pointer'
-                    onClick={handleDelete}
-                    />
-            </div>
         </CardFooter>
     </Card>
 

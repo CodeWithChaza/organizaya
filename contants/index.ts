@@ -31,3 +31,14 @@ export const tareas = [
       isCompleted: true
     },
   ] 
+
+
+export const linksNavegacion = [
+  {
+    titulo: 'Tareas',
+    route: '/'
+  }, {
+    titulo: 'Etiquetas',
+    route: '/etiquetas',
+  }
+]

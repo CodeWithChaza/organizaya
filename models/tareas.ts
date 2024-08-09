@@ -18,6 +18,6 @@ const TareaSchema = new Schema({
 
 });
 
-const Tarea = models.Tarea || model('Tarea', TareaSchema)
+const Tarea = models?.Tarea || model('Tarea', TareaSchema)
 
 export default Tarea
