@@ -21,8 +21,6 @@ export const createTarea = async(tareaNueva: tareaNueva) => {
         console.log('Error: ', error)
     }
 
-
-
 }
 
 
@@ -33,10 +31,8 @@ export const editarTarea = async(tarea: TareaInterface) => {
         const tareaAEditar = await Tarea.findById(tarea._id) as TareaInterface;
         if (!tareaAEditar) return;
 
-
         const tareaActulizada = await Tarea.findByIdAndUpdate( tareaAEditar._id, tarea, {new: true});
         revalidatePath('/');
-
 
         return JSON.parse(JSON.stringify(tareaActulizada)) 
         

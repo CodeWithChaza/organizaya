@@ -6,6 +6,7 @@ declare type tareaNueva = {
     descripcion: string;
     fechaACompletar: Date;
     isCompleted: boolean;
+    etiquetaId: string;
 }
 
 declare type TareaInterface = {
@@ -14,4 +15,15 @@ declare type TareaInterface = {
     descripcion: string;
     fechaACompletar: string | Date ;
     isCompleted: boolean;
+    etiquetaId: string;
+}
+
+
+declare type EtiquetaInterface = {
+    _id?: string;
+    nombre: string;
+}
+
+declare type EtiquetaParams = {
+    nombre: string;
 }
