@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -16,6 +16,19 @@ import {
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+
+
+
+
+
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
  
@@ -28,6 +41,7 @@ import {
 } from "@/components/ui/popover"
 import { createTarea, editarTarea } from '@/lib/actions.tarea'
 import { useRouter } from 'next/navigation'
+import { getEtiquetas } from '@/lib/actions.etiqueta'
  
 
 
@@ -38,6 +52,7 @@ const formSchema = z.object({
   descripcion: z.string(),
   fechaACompletar: z.date(),
   isCompleted: z.boolean(),
+  etiquetaId: z.string(),
 })
 
 
@@ -45,18 +60,23 @@ const formSchema = z.object({
 type Props = {
     type: 'crear' | 'editar';
     data?: TareaInterface;
-}
+  }
 
 const FormularioTareaNueva = ({type, data}: Props) => {
 
 
     const router = useRouter();
+    const [ etiquetaLista, setEtiquetaLista ] = useState<EtiquetaInterface[]>([])
+    const [procesando, setProcesado] = useState(false);
+
+
 
     const tareaDefaultValues = {
         titulo: "",
         descripcion: '',
         fechaACompletar: new Date(),
         isCompleted: false,
+        etiquetaId: '',
     }
 
     const tareaEditarValues = {
@@ -65,6 +85,7 @@ const FormularioTareaNueva = ({type, data}: Props) => {
         descripcion: data?.descripcion,
         fechaACompletar: data?.fechaACompletar ? new Date(data?.fechaACompletar) : new Date(),
         isCompleted: data?.isCompleted,
+        etiquetaId: data?.etiquetaId,
     }
 
     const initialValues = data && type === 'editar' ? tareaEditarValues : tareaDefaultValues;
@@ -108,14 +129,41 @@ const FormularioTareaNueva = ({type, data}: Props) => {
 
         } catch (error) {
             console.log('Error: ', error);
+        } finally {
+          setProcesado((prevState) => !prevState);
         }
       }
+
+
+      useEffect(() => {
+
+        const fetchEtiquetas = async() => {
+          const etiquetas = await getEtiquetas() as EtiquetaInterface[];
+          setEtiquetaLista(etiquetas)
+
+        }
+
+        fetchEtiquetas();
+
+      }, [])
+      
+
+
+
+
 
 
   return (
 
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="bg-white border rounded-md p-4 space-y-8">
+
+
+      <div className='flex flex-col md:flex-row gap-12'>
+
+      <div className='flex flex-col min-w-72 gap-8 '>
+
+
         <FormField
           control={form.control}
           name="titulo"
@@ -137,13 +185,14 @@ const FormularioTareaNueva = ({type, data}: Props) => {
             <FormItem>
               <FormLabel>Descripcion</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Textarea placeholder="" className='h-44'{...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
+      </div>
+      <div className='flex flex-col min-w-72 gap-8 '>
         <FormField
           control={form.control}
           name="fechaACompletar"
@@ -182,6 +231,41 @@ const FormularioTareaNueva = ({type, data}: Props) => {
         />
 
 
+      <FormField
+          control={form.control}
+          name="etiquetaId"
+          render={({ field }) => (
+            <FormItem className='flex flex-col gap-2'>
+              <FormLabel>Etiqueta</FormLabel>
+              <FormControl>
+
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecciona una Etiqueta" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {etiquetaLista?.map((etiqueta) => (
+                      <SelectItem 
+                        key={etiqueta._id}
+                        value={etiqueta._id!}>
+                          <span className='capitalize'>
+                            {etiqueta.nombre}
+                          </span>
+                      </SelectItem>
+
+                    ))}
+                  </SelectContent>
+                </Select>
+
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+
         <FormField
           control={form.control}
           name="isCompleted"
@@ -198,9 +282,19 @@ const FormularioTareaNueva = ({type, data}: Props) => {
             </FormItem>
           )}
         />
+      </div>
 
 
-        <Button type="submit">Submit</Button>
+      </div>
+
+
+        <Button 
+          type="submit"
+          className='w-full bg-blue-700'
+          disabled={procesando}
+          >
+            {type === 'editar' ? 'Guardar' : 'Crear'}
+          </Button>
       </form>
     </Form>
   )
